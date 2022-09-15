@@ -165,5 +165,5 @@ async def delete_messages(numbers):
             msg_list = []
             break
 
-main()
+# main()
 
