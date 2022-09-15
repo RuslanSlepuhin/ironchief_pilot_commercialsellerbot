@@ -119,7 +119,7 @@ def main():
                     msg_list.append(await bot.send_message(callback.message.chat.id, 'Отобразиться всё, что положил в корзину', reply_markup=markup)))
 
 
-    executor.start_polling(dp, skip_updates=True)
+    # executor.start_polling(dp, skip_updates=True)
 
 async def online_menu(category_list, row_width=1):
     n=0
