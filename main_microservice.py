@@ -1,7 +1,6 @@
 
 from flask import Flask, request
 import os
-import telebot
 import bot_ironchief
 
 
@@ -10,19 +9,21 @@ bot = bot_ironchief.bot
 bot_ironchief.main()
 
 
-@server.route('/' + bot.token, methods=['POST'])
+@server.route('/' + bot._token, methods=['POST'])
 def get_message():
     json_string = request.get_data().decode('utf-8')
-    update = telebot.types.Update.de_json(json_string)
+    update = bot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
     return '!', 200
 
 
 @server.route('/')
 def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url='https://bot-ironchief.herokuapp.com/' + bot.token)
-    return 'Hello from bot', 200
+    bot.delete_webhook()
+    bot.set_webhook(url='https://bot-ironchief.herokuapp.com/' + bot._token)
+    # bot.set_webhook(url='http://127.0.0.1:5000/' + bot._token)
+
+    return 'Bot started', 200
 
 
 @server.route('/admin')
@@ -32,7 +33,7 @@ def helloadmin():
 
 @server.route('/rwh')
 def remove_webhook():
-    bot.remove_webhook()
+    bot.delete_webhook()
     return 'webhook delete - ok', 200
 
 
